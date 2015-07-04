@@ -21,7 +21,7 @@ treeMethods.addChild = function(value){
 };
 
 treeMethods.contains = function(target){
-
+	//console.log("something");
 	var searchTree = function(currentNode) {
 		if (currentNode && currentNode.value === target) {
 			return 1;
@@ -36,8 +36,7 @@ treeMethods.contains = function(target){
 		return 0;
 		
 	}
-
-	return searchTree(this.head) > 0 ? true : false;
+	return searchTree(this) > 0 ? true : false;
 	
 
 };
