@@ -1,61 +1,101 @@
 var BinarySearchTree = function(value){
-	var binaryTree = Object.create(BinarySearchTree.prototype);
-	binaryTree.left = null;
-	binaryTree.right = null;
-	binaryTree.value = value;
+	var obj = Object.create(BinarySearchTree.prototype);
 
-	return binaryTree;
+	obj.value = value;
+	obj.left = null;
+	obj.right = null;
+	return obj;
 };
-//console.log(value);
 
-BinarySearchTree.prototype.insert = function(value){
-	//console.log(this.value);
-
-	function searchTree(currentNode, value){
-	if (currentNode) {
-			if (currentNode.value > value){
-				if (!currentNode.right){
-					currentNode.right = BinarySearchTree(value);
-				}
-				else {
-					searchTree(currentNode.right, value);
-				}
-			} else {
-				if (!currentNode.left){
-					currentNode.left = BinarySearchTree(value);
-				}
-				else {
-					searchTree(currentNode.left, value);
-				}
+BinarySearchTree.prototype.insert = function(value) {
+	var currentNode = this.value;
+		if(value < currentNode) { 
+			if (!this.left) { 
+				this.left = BinarySearchTree(value);
+			} else { 
+				this.left.insert(value);
 			}
-		} else {
-			currentNode.value = value;
+		} else if (value > currentNode) {
+			if (!this.right) {
+				this.right = BinarySearchTree(value);
+			} else {
+				this.right.insert(value);
+			}
 		}
+}
+
+BinarySearchTree.prototype.contains = function(value) {
+	//returns a boolean
+	// var bool = false;
+	// console.log("running");	
+	var doesContain = false;
+	//this.right = {value: 7, left: null, right: null}
+	// console.log("checking to see if", this.value, "equals to", value);
+	if (value === this.value) {
+		// console.log("set doesContain to true")
+		return true;
+		// doesContain = true;
+	} else if (value > this.value) {
+		if (this.right === null) {               
+			// console.log("set doesContain to false");
+			return false;
+			// doesContain = false;
+		} 
+		//else {
+			// console.log("calling the .right recurse");
+			return this.right.contains(value);	//value = 7
+		//
+	} else if (this.value > value) {
+		if (this.left === null) {
+			return false;
+			// doesContain = false;
+			// console.log("set doesContain to false");
+		} 
+		//else {
+			// console.log("calling the .left recurse");
+			return this.left.contains(value);
+		//}
 	}
+	// return doesContain;
+}
 
-	searchTree(this);
-};
 
-BinarySearchTree.prototype.contains = function(value){
+	// var current = this.value;
+	// console.log(current);
+	// while (current.value != value) {
+	// 	if (value < current.value) {
+	// 		console.log("exe1")
+	// 		current = current.left;
+	// 	} else if(value > current.value) {
+	// 		console.log('exe2');
+	// 		current = current.right;
+	// 	}
+	// 	if (current == null) {
+	// 		return null;
+	// 	}
+	// }
+	// console.log(current);
+	// return current;
 
-	// returns a boolean
-};
 
-BinarySearchTree.prototype.depthFirstLog = function(cb){
+BinarySearchTree.prototype.depthFirstLog = function(cb) {
+	//do a recurse function to find the leftest value
+	//do a recurse function to find the rightest value
 
-};
+	//callback on the currentNode first
+	//callback on the leftest value
+	//traverse back up a tree when you have no children
+	//traverse to the right when you have children
+	if (this.value) {
+		cb(this.value)
+	} 
+	if (this.left) {
+		this.left.depthFirstLog(cb);
+	}
+	if (this.right) {
+		this.right.depthFirstLog(cb);
+	}
+}
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-
-
-// at Context.<anonymous> (file:///Users/student/benbiran/2015-06-data-structures/sprint-two/spec/binarySearchTreeSpec.js:9:28)
-//     at Test.require.register.Runnable.run (file:///Users/student/benbiran/2015-06-data-structures/lib/mocha/mocha.js:4039:32)
-//     at Runner.require.register.Runner.runTest (file:///Users/student/benbiran/2015-06-data-structures/lib/mocha/mocha.js:4404:10)
-//     at file:///Users/student/benbiran/2015-06-data-structures/lib/mocha/mocha.js:4450:12
-//     at next (file:///Users/student/benbiran/2015-06-data-structures/lib/mocha/mocha.js:4330:14)
-//     at file:///Users/student/benbiran/2015-06-data-structures/lib/mocha/mocha.js:4339:7
-//     at next (file:///Users/student/benbiran/2015-06-data-structures/lib/mocha/mocha.js:4287:23)
-//     at file:///Users/student/benbiran/2015-06-data-structures/lib/mocha/mocha.js:4302:7
-//     at Hook.require.register.Runnable.run (file:///Users/student/benbiran/2015-06-data-structures/lib/mocha/mocha.js:4041:5)
-//     at next (file:///Users/student/benbiran/2015-06-data-structures/lib/mocha/mocha.js:4296:10)
